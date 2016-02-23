@@ -19,25 +19,48 @@
             <!-- -------- -->
             <div class="row">
                 <form>
-                    <div class="form-group col-xs-4">
-                        <input ng-model="id" name="id" class="form-control input-md" id="id" placeholder="ID du pokémon">
+
+                    <div class="row">
+                        <div class="form-group">
+                            <input ng-model="id" name="id" class="form-control" id="id" placeholder="ID du pokémon">
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="form-group text-center">
+                            <label>Recherche : <input ng-model="searchPoke" placeholder="Filtre"></label><br>
+                            <label for="pokemonList">Liste des pokémons donnée par l'API :</label>
+                            <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke">
+                                <option ng-repeat="pokemon in data.pokemons | filter:searchPoke" value="{{pokemon.name}}">{{pokemon.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <pre>Identifiant renseigné = <span ng-bind="id"></span></pre>
+                        <pre>Valeur sélectionnée = <span>{{ data.selectedPoke }}</span></pre>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <button class="btn btn-primary pull-right" ng-click="go( data.selectedPoke.id )">Go !</button>
+                        </div>
+                    </div>
+
                 </form>
-                <div class="col-xs-4">
-                    <pre>Identifiant renseigné = <span ng-bind="id"></span></pre>
-                </div>
             </div> <!-- end .row -->
 
-            <!-- List of pokemons -->
-            <!-- ---------------- -->
-            <div class="row-inline">
-                <label>Recherche : <input ng-model="searchPoke"></label>
-                <label for="pokemonList">Liste des pokémons donnée par l'API :</label>
-                <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke">
-                    <option ng-repeat="pokemon in data.pokemons | filter:searchPoke" value="{{pokemon.name}}">{{pokemon.name}}</option>
-                </select>
-                <p>Valeur sélectionnée = {{ data.selectedPoke }}</p>
+            <div class="row">
+
+                <p>Voici le Pokémon que vous avez choisi :</p>
+                <ul>
+                    <li ng-repeat="(key, val) in poke">
+                        {{ key }} : {{ val }}
+                    </li>
+                </ul>
+
             </div> <!-- end .row -->
+
 
 
         </div> <!-- end .wrapper-search -->
