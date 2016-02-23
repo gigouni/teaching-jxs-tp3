@@ -35,7 +35,7 @@
 
                             <label>Recherche : <input ng-model="searchPoke" placeholder="Filtre"></label><br>
                             <label for="pokemonList">Liste des pokémons donnée par l'API :</label>
-                            <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke">
+                            <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke" ng-change="changeOnOption()" >
                                 <option ng-repeat="pokemon in data.pokemons | filter:searchPoke" value="{{pokemon.pokemon_species.name}}">{{ pokemon.entry_number }} - {{pokemon.pokemon_species.name}}</option>
                             </select>
                         </div>

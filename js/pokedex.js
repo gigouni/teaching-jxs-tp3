@@ -46,32 +46,49 @@ function SearchController($scope, $http, $log)
 
     });
 
+    $scope.changeOnOption = function () {
+
+        // Get the value of the ID of the Pokemon
+        var optionSelected = $("select#pokemonList option:selected").val();
+
+        // Append this value in the ID input
+        $("input#id").val(optionSelected);
+
+    };
+
     $scope.go = function () {
 
         // Get the ID given by the user (JQuery Powaaa)
         var IDGiven = $("input#id").val();
 
-        // Show the loader p tag
-        $("p#p_loader").show();
+        if( IDGiven.length > 0 )
+        {
+            // Show the loader p tag
+            $("p#p_loader").show();
 
-        // URI to get the information about the pokemon
-        var pokeApiUrlPoke = pokeApiUrl + "api/v2/pokemon/" + IDGiven;
+            // URI to get the information about the pokemon
+            var pokeApiUrlPoke = pokeApiUrl + "api/v2/pokemon/" + IDGiven;
 
-        $http({
-            method: 'GET',
-            url: pokeApiUrlPoke
-        }).then(function successCallback(response) {
-            console.log("LOG : CONTROLLER : Requête HTTP (information du pokémon) réussit avec succès.");
-            $scope.poke = {
-                "ID": response.data.id,
-                "Nom": response.data.name,
-                "XP": response.data.base_experience,
-                "Taille": response.data.height,
-                "Poids": response.data.weight
-            };
+            $http({
+                method: 'GET',
+                url: pokeApiUrlPoke
+            }).then(function successCallback(response) {
+                console.log("LOG : CONTROLLER : Requête HTTP (information du pokémon) réussit avec succès.");
+                $scope.poke = {
+                    "ID": response.data.id,
+                    "Nom": response.data.name,
+                    "XP": response.data.base_experience,
+                    "Taille": response.data.height,
+                    "Poids": response.data.weight
+                };
 
-            // Hide the loader p tag
-            $("p#p_loader").hide();
-        });
+                // Hide the loader p tag
+                $("p#p_loader").hide();
+            });
+        }
+        else
+        {
+            alert("Si tu essayes d'avoir les infos d'un Pokémon sans dire lequel (dans le champ ID), ça ne va pas être évident ... Essaye encore ^-^")
+        }
     }
 }
