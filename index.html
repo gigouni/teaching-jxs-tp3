@@ -13,10 +13,10 @@
 		<h1>Pokésir</h1>
 
 		<!-- Search -->
-        <div class="wrapper-search">
+        <div class="wrapper-search" ng-controller="SearchCtrl">
 
-            <!-- Search input -->
-            <!-- ------------ -->
+            <!-- ID input -->
+            <!-- -------- -->
             <div class="row">
                 <form>
                     <div class="form-group col-xs-4">
@@ -30,10 +30,11 @@
 
             <!-- List of pokemons -->
             <!-- ---------------- -->
-            <div class="row" ng-controller="SearchCtrl" >
+            <div class="row-inline">
+                <label>Recherche : <input ng-model="searchPoke"></label>
                 <label for="pokemonList">Liste des pokémons donnée par l'API :</label>
                 <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke">
-                    <option ng-repeat="pokemon in data.pokemons" value="{{pokemon.name}}">{{pokemon.name}}</option>
+                    <option ng-repeat="pokemon in data.pokemons | filter:searchPoke" value="{{pokemon.name}}">{{pokemon.name}}</option>
                 </select>
                 <p>Valeur sélectionnée = {{ data.selectedPoke }}</p>
             </div> <!-- end .row -->
