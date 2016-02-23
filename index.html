@@ -28,10 +28,15 @@
 
                     <div class="row">
                         <div class="form-group text-center">
+
+                            <div class="alert alert-info">
+                                <strong>Info</strong> Ce filtre de recherche vous permet de trouver l'identifiant correspondant à un Pokémon en particulier. Si vous souhaitez avoir plus de renseignements, tapez le dans le champ ID juste au dessus et cliquez sur Go !
+                            </div>
+
                             <label>Recherche : <input ng-model="searchPoke" placeholder="Filtre"></label><br>
                             <label for="pokemonList">Liste des pokémons donnée par l'API :</label>
                             <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke">
-                                <option ng-repeat="pokemon in data.pokemons | filter:searchPoke" value="{{pokemon.name}}">{{pokemon.name}}</option>
+                                <option ng-repeat="pokemon in data.pokemons | filter:searchPoke" value="{{pokemon.pokemon_species.name}}">{{ pokemon.entry_number }} - {{pokemon.pokemon_species.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -43,8 +48,12 @@
 
                     <div class="row">
                         <div class="form-group">
-                            <button class="btn btn-primary pull-right" ng-click="go( data.selectedPoke.id )">Go !</button>
+                            <button class="btn btn-primary pull-right" ng-click="go()">Go !</button>
                         </div>
+                    </div>
+
+                    <div class="row">
+                        <p id="test"></p>
                     </div>
 
                 </form>
@@ -52,6 +61,7 @@
 
             <div class="row">
 
+                <p id="p_loader" class="text-center">Request processing ... Please wait ...</p>
                 <p>Voici le Pokémon que vous avez choisi :</p>
                 <ul>
                     <li ng-repeat="(key, val) in poke">
