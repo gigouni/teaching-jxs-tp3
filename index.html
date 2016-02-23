@@ -15,6 +15,8 @@
 		<!-- Search -->
         <div class="wrapper-search">
 
+            <!-- Search input -->
+            <!-- ------------ -->
             <div class="row">
                 <form>
                     <div class="form-group col-xs-4">
@@ -28,11 +30,12 @@
 
             <!-- List of pokemons -->
             <!-- ---------------- -->
-            <div class="row">
-                Liste des pokémons donnée par l'API :
-                <select ng-controller="SearchCtrl">
-                    <option ng-repeat="pokemon in pokemons" value="{{pokemon.name}}">{{pokemon.name}}</option>
+            <div class="row" ng-controller="SearchCtrl" >
+                <label for="pokemonList">Liste des pokémons donnée par l'API :</label>
+                <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke">
+                    <option ng-repeat="pokemon in data.pokemons" value="{{pokemon.name}}">{{pokemon.name}}</option>
                 </select>
+                <p>Valeur sélectionnée = {{ data.selectedPoke }}</p>
             </div> <!-- end .row -->
 
 
