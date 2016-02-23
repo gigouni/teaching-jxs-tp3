@@ -13,16 +13,30 @@
 		<h1>Pokésir</h1>
 
 		<!-- Search -->
-        <div class="row">
-            <form>
-                <div class="form-group col-xs-4">
-                    <input ng-model="id" name="id" class="form-control input-md" id="id" placeholder="ID du pokémon">
+        <div class="wrapper-search">
+
+            <div class="row">
+                <form>
+                    <div class="form-group col-xs-4">
+                        <input ng-model="id" name="id" class="form-control input-md" id="id" placeholder="ID du pokémon">
+                    </div>
+                </form>
+                <div class="col-xs-4">
+                    <pre>Identifiant renseigné = <span ng-bind="id"></span></pre>
                 </div>
-            </form>
-            <div class="col-xs-4">
-                <pre>Identifiant renseigné = <span ng-bind="id"></span></pre>
-            </div>
-        </div>
+            </div> <!-- end .row -->
+
+            <!-- List of pokemons -->
+            <!-- ---------------- -->
+            <div class="row">
+                Liste des pokémons donnée par l'API :
+                <select ng-controller="SearchCtrl">
+                    <option ng-repeat="pokemon in pokemons" value="{{pokemon.name}}">{{pokemon.name}}</option>
+                </select>
+            </div> <!-- end .row -->
+
+
+        </div> <!-- end .wrapper-search -->
 
 
 		<!-- Pokémon information -->
