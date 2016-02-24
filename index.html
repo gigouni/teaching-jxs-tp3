@@ -22,7 +22,7 @@
 
                     <div class="row">
                         <div class="form-group">
-                            <input ng-model="id" name="id" class="form-control" id="id" placeholder="ID du pokémon">
+                            <input  name="id" class="form-control" id="id" placeholder="ID du pokémon" ng-load="deleteThisString()">
                         </div>
                     </div>
 
@@ -41,19 +41,10 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-4">
-                        <pre>Identifiant renseigné = <span ng-bind="id"></span></pre>
-                        <pre>Valeur sélectionnée = <span>{{ data.selectedPoke }}</span></pre>
-                    </div>
-
                     <div class="row">
                         <div class="form-group">
                             <button class="btn btn-primary pull-right" ng-click="go()">Go !</button>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <p id="test"></p>
                     </div>
 
                 </form>

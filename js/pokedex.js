@@ -8,67 +8,51 @@ pokeApp.config(['$resourceProvider', function($resourceProvider) {
 var pokeApiUrl = "http://pokeapi.co/";
 
 // Hide the loader p tag
-$loader = $("p#p_loader");
+$loader = $('p#p_loader');
 $loader.hide();
 
 
 // -------------------------------------------------
-// Factories
+// Services
 // -------------------------------------------------
-pokeApp.factory('getPokemonInfo', function($http)
-{
-    // URI to get the information about the pokemon
-    /*var pokeApiUrlPoke = pokeApiUrl + "api/v2/pokemon/" + IDGiven;
+pokeApp.service('getPokemonInfoSrv', function($q, $http){
 
-     $http({
-     method: 'GET',
-     url: pokeApiUrlPoke
-     }).then(function successCallback(response) {
-     console.log("LOG : CONTROLLER : Requête HTTP (information du pokémon) réussit avec succès.");
-     $scope.poke = {
-     "ID": response.data.id,
-     "Nom": response.data.name,
-     "XP": response.data.base_experience,
-     "Taille": response.data.height,
-     "Poids": response.data.weight
-     };
-     });
-     */
+    this.getPoke = function(IDGiven)
+    {
+        // Need to be there ... Why ? Gooq question ..
+        var promise = null;
 
-    console.log("Je suis dans la fonction de récup");
+        // URI to get the information about the pokemon
+        var pokeApiUrlPoke = pokeApiUrl + "api/v2/pokemon/" + IDGiven;
 
-    var promise;
-    return {
-        async: function(IDGiven) {
-            if ( !promise ) {
-                // URL too access to the entity
-                var pokeApiUrlPoke = pokeApiUrl + "api/v2/pokemon/" + IDGiven;
-                // $http returns a promise, which has a then function, which also returns a promise
-                promise = $http.get(pokeApiUrlPoke).then(function successCallback(response) {
-                    // The then function here is an opportunity to modify the response
-                    console.log(JSON.stringify(response));
-                    // The return value gets picked up by the then in the controller.
-                    return response;
-                });
-            }
-            // Return the promise to the controller
-            return promise;
-        }
+        // Get request
+        $http({
+            method: 'GET',
+            url: pokeApiUrlPoke
+        }).then(function successCallback(response) {
+            console.log("LOG : CONTROLLER : Requête HTTP (information du pokémon) réussit avec succès.");
+            console.log(JSON.stringify(response));
+            promise = response.data;
+        });
+
+        // Return data
+        return promise;
     };
-    // return getPokemonInfo;
 });
 
 
 // -------------------------------------------------
 // Controllers
 // -------------------------------------------------
-pokeApp.controller('SearchCtrl', function( $scope, $http, getPokemonInfo )
+pokeApp.controller('SearchCtrl', function( $scope, $http, getPokemonInfoSrv )
 {
     // Show the loader p tag
-    // var $loader = $("p#p_loader");
+    var $loader = $('p#p_loader');
     $loader.show();
 
-    console.log("LOG : CONTROLLER : Controller SearchController et logs OK");
+    // Clean the ID field if not empty (just to be sure)
+    var $inputIDField = $("input#id");
+    $inputIDField.val('');
 
     var pokeApiUrlListTotal = pokeApiUrl + "api/v2/pokedex/1/";
     console.log("LOG : CONTROLLER : URL fournissant la liste des pokémons : " + pokeApiUrlListTotal);
@@ -77,10 +61,8 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, getPokemonInfo )
     $http({
         method: 'GET',
         url: pokeApiUrlListTotal
-
     }).then(function successCallback(response) {
-        console.log("LOG : CONTROLLER : Requête HTTP (liste des pokémons) réussit avec succès.");
-        // console.log("Avec : " + JSON.stringify(response.data.pokemon_entries));
+        console.log("LOG : CONTROLLER : ILS ARRIVENNT !! - Qui ça ? - LES POKÉMOOOOOONS !");
         $scope.data = {
             // To display the name of the selected pokemon
             selectedPoke: null,
@@ -112,24 +94,23 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, getPokemonInfo )
         if( IDGiven.length > 0 )
         {
             // Show the loader p tag
-            // var $loader = $('p#p_loader');
+            var $loader = $('p#p_loader');
             $loader.show();
 
-            console.log("Loader affiché, lancement de la requete de récupération d'informations");
-
             // Call to the factory
-            $scope.poke = function(IDGiven)
-            {
+            $scope.poke = getPokemonInfoSrv.getPoke(IDGiven);
 
-                console.log("Je suis à l'entrée de la fonction de récup");
-                // Call the async method and then do stuff with what is returned inside our own then function
-                getPokemonInfo.async(IDGiven).then(function(d) {
-                    $scope.data = d;
-                });
-            };
+
+            //$scope.poke = function(IDGiven)
+            //{
+            //    console.log("Je suis à l'entrée de la fonction de récup");
+            //    // Call the async method and then do stuff with what is returned inside our own then function
+            //    getPokemonInfo.async(IDGiven).then(function(d) {
+            //        $scope.data = d;
+            //    });
+            //};
 
             // Hide the loader p tag
-            // $("p#p_loader").hide();
             $loader.hide();
         }
         else
