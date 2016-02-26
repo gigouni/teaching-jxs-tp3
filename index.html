@@ -30,7 +30,7 @@
                         <div class="form-group text-center">
 
                             <div class="alert alert-info">
-                                <strong>Info</strong> Ce filtre de recherche vous permet de trouver l'identifiant correspondant à un Pokémon en particulier. Si vous souhaitez avoir plus de renseignements, tapez le dans le champ ID juste au dessus et cliquez sur Go !
+                                <strong>Information</strong> Ce filtre de recherche vous permet de trouver l'identifiant correspondant à un Pokémon en particulier. Si vous souhaitez avoir plus de renseignements, tapez le dans le champ ID juste au dessus et cliquez sur Go !
                             </div>
 
                             <label>Recherche : <input ng-model="searchPoke" placeholder="Filtre"></label><br>
@@ -51,14 +51,16 @@
             </div> <!-- end .row -->
 
             <div class="row">
-
                 <p id="p_loader" class="text-center">Request processing ... Please wait ...</p>
+            </div>
+
+            <div id="pokeInfoResult" class="row">
+
                 <p>Voici le Pokémon que vous avez choisi :</p>
-                <ul>
-                    <li ng-repeat="(key, val) in poke">
-                        {{ key }} : {{ val }}
-                    </li>
-                </ul>
+                <dl class="dl-horizontal" ng-repeat="(key, val) in poke">
+                    <dt>{{ key }}</dt>
+                    <dd>{{ val }}</dd>
+                </dl>
 
             </div> <!-- end .row -->
 
