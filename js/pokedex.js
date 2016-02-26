@@ -20,6 +20,9 @@ var $inputIDField = $("input#id");
 // The div which contains the information concerning the selected Pokemon
 var pokeInfoResult = $("#pokeInfoResult");
 
+// Conversion to have french data
+function conversionPoundsToKg(weightPounds) { return Math.round(weightPounds * 0.45359); }
+
 // -------------------------------------------------
 // Services
 // -------------------------------------------------
@@ -88,7 +91,12 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
         // Append this value in the ID input
         $inputIDField.val(optionSelected);
 
+        // Search the information concerning the new Pokemon
+        // Equivalent of the watch service
+        $scope.go();
+
     };
+
 
     // Run a search in the database about a Pokemon in particular
     $scope.go = function () {
@@ -126,7 +134,7 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
                         "Nom": response.name,
                         "XP": response.base_experience + " points d'expérience",
                         "Taille": response.height + " cm",
-                        "Poids": response.weight + " kg"
+                        "Poids": conversionPoundsToKg(response.weight) + " kilogrammes"
                     };
                 })
                 .catch(function (response) {
@@ -141,5 +149,5 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
         {
             alert("Si tu essayes d'avoir les infos d'un Pokémon sans dire lequel (dans le champ ID), ça ne va pas être évident ... Essaye encore ^-^")
         }
-    }
+    };
 });
