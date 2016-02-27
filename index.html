@@ -9,70 +9,8 @@
 </head>
 <body ng-app="pokedex">
 
-	<div class="container">
-		<h1>Pokésir</h1>
-
-		<!-- Search -->
-        <div class="wrapper-search" ng-controller="SearchCtrl">
-
-            <!-- ID input -->
-            <!-- -------- -->
-            <div class="row">
-                <form>
-
-                    <div class="row">
-                        <div class="form-group">
-                            <input  name="id" class="form-control" id="id" placeholder="ID du pokémon" ng-load="deleteThisString()">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group text-center">
-
-                            <div class="alert alert-info">
-                                <strong>Information</strong> Ce filtre de recherche vous permet de trouver l'identifiant correspondant à un Pokémon en particulier. Si vous souhaitez avoir plus de renseignements, tapez le dans le champ ID juste au dessus et cliquez sur Go !
-                            </div>
-
-                            <label>Recherche : <input ng-model="searchPoke" placeholder="Filtre"></label><br>
-                            <label for="pokemonList">Liste des pokémons donnée par l'API :</label>
-                            <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke" ng-change="onChangeOption()" >
-                                <option ng-repeat="pokemon in data.pokemons | filter:searchPoke" value="{{pokemon.pokemon_species.name}}">{{ pokemon.entry_number }} - {{pokemon.pokemon_species.name}}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group">
-                            <button class="btn btn-primary pull-right" ng-click="go()">Go !</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div> <!-- end .row -->
-
-            <div class="row">
-                <p id="p_loader" class="text-center">Request processing ... Please wait ...</p>
-            </div>
-
-            <div id="pokeInfoResult" class="row">
-
-                <p>Voici le Pokémon que vous avez choisi :</p>
-                <dl class="dl-horizontal" ng-repeat="(key, val) in poke">
-                    <dt>{{ key }}</dt>
-                    <dd>{{ val }}</dd>
-                </dl>
-
-            </div> <!-- end .row -->
-
-
-
-        </div> <!-- end .wrapper-search -->
-
-
-		<!-- Pokémon information -->
-		<div></div>
-
-	</div>
+    <!-- Insert pokedex template here -->
+    <div pokedex></div>
 
     <!-- Dependencies -->
     <script src="js/jquery.min.js"></script>

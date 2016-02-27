@@ -1,4 +1,4 @@
-var pokeApp = angular.module('pokedex', ['ngResource']);
+var pokeApp = angular.module('pokedex', ['ngResource', ]);
 
 pokeApp.config(['$resourceProvider', function($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
@@ -22,6 +22,7 @@ var pokeInfoResult = $("#pokeInfoResult");
 
 // Conversion to have french data
 function conversionPoundsToKg(weightPounds) { return Math.round(weightPounds * 0.45359); }
+
 
 // -------------------------------------------------
 // Services
@@ -149,5 +150,15 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
         {
             alert("Si tu essayes d'avoir les infos d'un Pokémon sans dire lequel (dans le champ ID), ça ne va pas être évident ... Essaye encore ^-^")
         }
+    };
+});
+
+
+// -------------------------------------------------
+// Directives
+// -------------------------------------------------
+pokeApp.directive('pokedex', function() {
+    return {
+        templateUrl: 'templates/pokedex.html'
     };
 });
