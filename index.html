@@ -18,8 +18,47 @@
         <!-- Insert navbar -->
         <div navbar></div>
 
-        <!-- Insert pokedex template -->
-        <div pokedex></div>
+        <!-- Pokedex -->
+        <!-- ------- -->
+        <div class="container jumbotron">
+
+            <!-- Search -->
+            <div class="wrapper-search">
+
+                <!-- ID input -->
+                <!-- -------- -->
+                <div class="row">
+                    <form>
+                        <div class="form-group col-xs-4 col-xs-offset-4">
+                            <label for="id"><p>Identifiant du pokémon</p></label>
+                            <input  name="id" class="form-control" id="id" placeholder="ID du pokémon" ng-load="deleteThisString()">
+                        </div>
+
+                        <div class="form-group col-xs-4 col-xs-offset-4">
+                            <button id="btn_go" class="btn btn-primary" ng-click="go()">Go !</button>
+                        </div>
+                    </form>
+                </div> <!-- end .row -->
+
+                <div class="row">
+                    <p id="p_loader" class="text-center">Request processing ... Please wait ...</p>
+                </div>
+
+                <!-- Pokémon information -->
+                <div id="pokeInfoResult" class="row">
+
+                    <p>Voici le Pokémon que vous avez choisi :</p>
+                    <ul class="pokeInfoResultListItem list-group col-xs-6 col-xs-offset-3" ng-repeat="(key, val) in poke">
+                        <li class="list-group-item list-group-item-info"><b>{{ key }}</b> : {{ val }}</li>
+                    </ul>
+
+                </div> <!-- end .row -->
+
+
+
+            </div> <!-- end .wrapper-search -->
+
+        </div>
 
     </div>
 
@@ -27,7 +66,6 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/angular.min.js"></script>
-    <script src="assets/js/angular-resource.min.js"></script>
 
     <!-- Pokedex app -->
     <script src="assets/js/pokedex.js"></script>

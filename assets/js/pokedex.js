@@ -7,9 +7,6 @@ pokeApp.directive('navbar', function() {
     return { templateUrl: 'templates/navbar.html' };
 });
 
-pokeApp.directive('pokedex', function() {
-    return { templateUrl: 'templates/pokedex.html' };
-});
 
 // -------------------------------------------------
 // Utilities
@@ -26,11 +23,6 @@ var $inputIDField = $("input#id");
 
 // The div which contains the information concerning the selected Pokemon
 var pokeInfoResult = $("#pokeInfoResult");
-// Hide the useless div by default - Clean the interface
-pokeInfoResult.hide();
-
-// The GO button
-var $btnGo = $("#btn-go");
 
 // Conversion to have french data
 function conversionPoundsToKg(weightPounds) { return Math.round(weightPounds * 0.45359); }
@@ -68,11 +60,14 @@ pokeApp.service('getPokemonInfoSrv', function($http, $q)
 // -------------------------------------------------
 pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSrv )
 {
-    // Clean the ID field if not empty (just to be sure)
+    // Clear the ID field if not empty (just to be sure)
     $inputIDField.val('');
 
+    // Hide the useless div by default - Clean the interface
+    pokeInfoResult.hide();
+
     // Disable the Go button
-    $btnGo.addClass("disabled");
+    $("#btn_go").addClass("disabled");
 
     var pokeApiUrlListTotal = pokeApiUrl + "api/v2/pokedex/1/";
     $log.log("LOG : CONTROLLER : URL fournissant la liste des pokémons : " + pokeApiUrlListTotal);
@@ -95,8 +90,31 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
         $loader.hide();
 
         // Enable the Go button
-        $btnGo.removeClass("disabled");
+        $("#btn_go").removeClass("disabled");
     });
+
+    // Clear the filter input after a click on the cross - Hide the cross after
+    $scope.clear = function() {
+
+        // Empty the input content
+        $("input#filter").val('');
+        $("span#clear").addClass("hidden");
+
+    };
+
+    // Display the cross if there is something erasable
+    $scope.displayTheCross = function() {
+
+        console.log("log appel");
+
+        // If the filter field is not empty
+        if( $("input#filter").val().length > 0 )
+        {
+            // Show the cross
+            $("span#clear").removeClass("hidden");
+        }
+
+    };
 
     // Change the value into the input ID field by the new selected one
     $scope.onChangeOption = function () {
@@ -128,7 +146,7 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
         if( IDGiven.length > 0 )
         {
             // Disable the Go button
-            $btnGo.addClass("disabled");
+            $("#btn_go").addClass("disabled");
 
             // Show the loader
             $loader.show();
@@ -165,7 +183,7 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
                 });
 
             // Enable the Go button
-            $btnGo.removeClass("disabled");
+            $("#btn_go").removeClass("disabled");
         }
         else
         {
