@@ -2,25 +2,35 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>PokéWatt - Le pokédex qui vous met au courant !</title>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
 
 </head>
 <body ng-app="pokedex">
 
-    <!-- Insert pokedex template here -->
-    <div pokedex></div>
+    <!-- To wrap the pokedex (two different templates) with the same controller -->
+    <div id="wrapper" ng-controller="SearchCtrl">
+
+        <!-- Insert navbar -->
+        <div navbar></div>
+
+        <!-- Insert pokedex template -->
+        <div pokedex></div>
+
+    </div>
 
     <!-- Dependencies -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/angular-resource.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-resource.min.js"></script>
 
     <!-- Pokedex app -->
-    <script src="js/pokedex.js"></script>
-
+    <script src="assets/js/pokedex.js"></script>
 
 </body>
 </html>

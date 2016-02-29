@@ -1,41 +1,20 @@
-<div class="container">
-    <h1>Pokésir</h1>
+<div class="container jumbotron">
 
     <!-- Search -->
-    <div class="wrapper-search" ng-controller="SearchCtrl">
+    <div class="wrapper-search">
 
         <!-- ID input -->
         <!-- -------- -->
         <div class="row">
             <form>
-
-                <div class="row">
-                    <div class="form-group">
-                        <input  name="id" class="form-control" id="id" placeholder="ID du pokémon" ng-load="deleteThisString()">
-                    </div>
+                <div class="form-group col-xs-4 col-xs-offset-4">
+                    <label for="id"><p>Identifiant du pokémon</p></label>
+                    <input  name="id" class="form-control" id="id" placeholder="ID du pokémon" ng-load="deleteThisString()">
                 </div>
 
-                <div class="row">
-                    <div class="form-group text-center">
-
-                        <div class="alert alert-info">
-                            <strong>Information</strong> Ce filtre de recherche vous permet de trouver l'identifiant correspondant à un Pokémon en particulier. Si vous souhaitez avoir plus de renseignements, tapez le dans le champ ID juste au dessus et cliquez sur Go !
-                        </div>
-
-                        <label>Recherche : <input ng-model="searchPoke" placeholder="Filtre"></label><br>
-                        <label for="pokemonList">Liste des pokémons donnée par l'API :</label>
-                        <select name="pokemonList" id="pokemonList" ng-model="data.selectedPoke" ng-change="onChangeOption()" >
-                            <option ng-repeat="pokemon in data.pokemons | filter:searchPoke" value="{{pokemon.pokemon_species.name}}">{{ pokemon.entry_number }} - {{pokemon.pokemon_species.name}}</option>
-                        </select>
+                    <div class="form-group col-xs-4 col-xs-offset-4">
+                        <button id="btn-go" class="btn btn-primary" ng-click="go()">Go !</button>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group">
-                        <button class="btn btn-primary pull-right" ng-click="go()">Go !</button>
-                    </div>
-                </div>
-
             </form>
         </div> <!-- end .row -->
 
@@ -47,10 +26,9 @@
         <div id="pokeInfoResult" class="row">
 
             <p>Voici le Pokémon que vous avez choisi :</p>
-            <dl class="dl-horizontal" ng-repeat="(key, val) in poke">
-                <dt>{{ key }}</dt>
-                <dd>{{ val }}</dd>
-            </dl>
+            <ul class="pokeInfoResultListItem list-group col-xs-6 col-xs-offset-3" ng-repeat="(key, val) in poke">
+                <li class="list-group-item list-group-item-info"><b>{{ key }}</b> : {{ val }}</li>
+            </ul>
 
         </div> <!-- end .row -->
 
@@ -62,10 +40,10 @@
 
 
 <!-- Dependencies -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/angular.min.js"></script>
-<script src="js/angular-resource.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/angular.min.js"></script>
+<script src="assets/js/angular-resource.min.js"></script>
 
 <!-- Pokedex app -->
-<script src="js/pokedex.js"></script>
+<script src="assets/js/pokedex.js"></script>

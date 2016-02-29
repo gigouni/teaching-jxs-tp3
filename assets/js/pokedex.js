@@ -1,8 +1,15 @@
-var pokeApp = angular.module('pokedex', ['ngResource', ]);
+var pokeApp = angular.module('pokedex', []);
 
-pokeApp.config(['$resourceProvider', function($resourceProvider) {
-    $resourceProvider.defaults.stripTrailingSlashes = false;
-}]);
+// -------------------------------------------------
+// Directives
+// -------------------------------------------------
+pokeApp.directive('navbar', function() {
+    return { templateUrl: 'templates/navbar.html' };
+});
+
+pokeApp.directive('pokedex', function() {
+    return { templateUrl: 'templates/pokedex.html' };
+});
 
 // -------------------------------------------------
 // Utilities
@@ -19,6 +26,11 @@ var $inputIDField = $("input#id");
 
 // The div which contains the information concerning the selected Pokemon
 var pokeInfoResult = $("#pokeInfoResult");
+// Hide the useless div by default - Clean the interface
+pokeInfoResult.hide();
+
+// The GO button
+var $btnGo = $("#btn-go");
 
 // Conversion to have french data
 function conversionPoundsToKg(weightPounds) { return Math.round(weightPounds * 0.45359); }
@@ -56,11 +68,11 @@ pokeApp.service('getPokemonInfoSrv', function($http, $q)
 // -------------------------------------------------
 pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSrv )
 {
-    // Hide the useless div by default - Clean the interface
-    pokeInfoResult.hide();
-
     // Clean the ID field if not empty (just to be sure)
     $inputIDField.val('');
+
+    // Disable the Go button
+    $btnGo.addClass("disabled");
 
     var pokeApiUrlListTotal = pokeApiUrl + "api/v2/pokedex/1/";
     $log.log("LOG : CONTROLLER : URL fournissant la liste des pokémons : " + pokeApiUrlListTotal);
@@ -81,6 +93,9 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
 
         // Hide the loader
         $loader.hide();
+
+        // Enable the Go button
+        $btnGo.removeClass("disabled");
     });
 
     // Change the value into the input ID field by the new selected one
@@ -108,10 +123,13 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
 
         // Get the ID given by the user (JQuery Powaaa)
         var IDGiven = $inputIDField.val();
-        $log.log("Vous avez choisi " + IDGiven + "? Allons l'attraper en base alors !");
+        $log.info("INFO : CONTROLLER : Vous avez choisi " + IDGiven + "? Allons l'attraper en base alors !");
 
         if( IDGiven.length > 0 )
         {
+            // Disable the Go button
+            $btnGo.addClass("disabled");
+
             // Show the loader
             $loader.show();
 
@@ -145,20 +163,13 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
                         "ID": "Erreur lors de la récupération des informations. Consultez les logs pour plus d'informations (CTRL + MAJ + I)"
                     };
                 });
+
+            // Enable the Go button
+            $btnGo.removeClass("disabled");
         }
         else
         {
             alert("Si tu essayes d'avoir les infos d'un Pokémon sans dire lequel (dans le champ ID), ça ne va pas être évident ... Essaye encore ^-^")
         }
-    };
-});
-
-
-// -------------------------------------------------
-// Directives
-// -------------------------------------------------
-pokeApp.directive('pokedex', function() {
-    return {
-        templateUrl: 'templates/pokedex.html'
     };
 });

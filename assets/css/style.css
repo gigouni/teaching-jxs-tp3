@@ -1,0 +1,15 @@
+body {
+    background-image: url("../images/background_5.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.pokeInfoResultListItem {
+    font-size: 1.2em;
+    border: 3px solid;
+}
+
+.jumbotron { opacity: 0.8; }
+.container.jumbotron { margin-top: 100px; border-radius: 12px; }
+.clear { clear: both; }
+.wrapper-search { text-align: center; opacity: 1; }
