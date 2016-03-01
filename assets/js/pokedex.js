@@ -25,7 +25,8 @@ var $inputIDField = $("input#id");
 var pokeInfoResult = $("#pokeInfoResult");
 
 // Conversion to have french data
-function conversionPoundsToKg(weightPounds) { return Math.round(weightPounds * 0.45359); }
+function getRealWeight(weight) { return weight / 10; }
+function getRealHeight(height) { return height * 10; }
 
 
 // -------------------------------------------------
@@ -170,15 +171,15 @@ pokeApp.controller('SearchCtrl', function( $scope, $http, $log, getPokemonInfoSr
                         "ID": response.id + " ème Pokémon de votre Pokédex préféré !",
                         "Nom": response.name,
                         "XP": response.base_experience + " points d'expérience",
-                        "Taille": response.height + " cm",
-                        "Poids": conversionPoundsToKg(response.weight) + " kilogrammes"
+                        "Taille": getRealHeight(response.height) + " cm",
+                        "Poids": getRealWeight(response.weight) + " kilogrammes"
                     };
                 })
                 .catch(function (response) {
                     $log.error("ERROR : CONTROLLER : GO : Ta MasterBall a échouée et t'a envoyée un message : " + JSON.stringify(response));
 
                     return $scope.poke = {
-                        "ID": "Erreur lors de la récupération des informations. Consultez les logs pour plus d'informations (CTRL + MAJ + I)"
+                        "Error": "Erreur lors de la récupération des informations. Consultez les logs pour plus d'informations (CTRL + MAJ + I)"
                     };
                 });
 

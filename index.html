@@ -48,6 +48,13 @@
                 <div id="pokeInfoResult" class="row">
 
                     <p>Voici le Pokémon que vous avez choisi :</p>
+                    <ul class="list-group col-xs-6 col-xs-offset-2">
+                        <li>
+                            <img style="width:30%;"
+                                 src="http://img.pokemondb.net/artwork/{{ poke.Nom }}.jpg"
+                                 class="img-responsive col-xs-offset-6 img-rounded">
+                        </li>
+                    </ul>
                     <ul class="pokeInfoResultListItem list-group col-xs-6 col-xs-offset-3" ng-repeat="(key, val) in poke">
                         <li class="list-group-item list-group-item-info"><b>{{ key }}</b> : {{ val }}</li>
                     </ul>
