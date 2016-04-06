@@ -23,20 +23,76 @@ Toute saisie effectuée dans le champ "Filtre" lancera une requête pour récup�
 ### Recherche d'un pokémon via son numéro
 #### Q1. Définition d'une balise `<input>`
 
-Contenu à venir ...
+```html
+<form>
+    <div class="form-group col-xs-4">
+        <input ng-model="id" name="id" class="form-control input-md" id="id" placeholder="ID du pokémon">
+    </div>
+</form>
+```
 
 #### Q2. Affichage de la valeur de l'ID dans la balise `<input>` précédente
 
-Contenu à venir ...
+```html
+<div class="col-xs-4">
+    <pre>Identifiant renseigné = <span ng-bind="id"></span></pre>
+</div>
+```
 
 ### Recherche dans une liste
 #### Q3. Création d'un contrôleur et appel depuis la vue
 
-Contenu à venir ...
+Dans le contrôleur
+
+```javascript
+function SearchController($scope, $http)
+ {
+     // Nouveau controleur
+ }
+```
+
+et dans la vue
+
+```html
+<div class="row">
+  Liste des pokémons donnée par l'API :
+  <select ng-controller="SearchCtrl">
+    <option ng-repeat="pokemon in pokemons" value="{{pokemon.name}}">{{pokemon.name}}</option>
+  </select>
+</div> <!-- end .row -->
+```
 
 #### Q4. Ajout manuel d'une variable contenant une liste de pokémons et à injecter dans le $scope
 
-Contenu à venir ...
+Il y a eu une mauvaise lecture de ma part à ce moment du projet. Je pensais qu'il fallait faire appel directement à l'API. 
+
+```javascript
+function SearchController($scope, $http)
+ {
+     console.log("LOG : CONTROLLER : Controller SearchController OK");
+ 
+     var pokeApiUrlListTotal = "http://pokeapi.co/api/v2/pokemon/";
+     console.log("LOG : CONTROLLER : URL fournissant la liste des pokémons : " + pokeApiUrlListTotal);
+ 
+     // GET request
+     $http({
+         method: 'GET',
+         url: pokeApiUrlListTotal
+     }).then(function successCallback(response) {
+         console.log("LOG : CONTROLLER : Requête HTTP réussit avec succès");
+         $scope.pokemons = response.data;
+     });
+ }
+```
+
+Or en les entrant en dur, nous aurions eu quelque chose sous la forme ...
+
+```javascript
+function SearchController($scope, $http)
+ {
+    $scope.pokemons = [ {objet_pokemon_1}, {objet_pokemon_2}, {objet_pokemon_3}, {objet_pokemon_4}, {objet_pokemon_5} ]
+ }
+```
 
 #### Q5. Affichage de la liste des pokémons entrés manuellement
 
