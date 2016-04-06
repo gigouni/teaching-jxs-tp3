@@ -88,7 +88,7 @@ function SearchController($scope, $http)
 Or en les entrant en dur, nous aurions eu quelque chose sous la forme ...
 
 ```javascript
-function SearchController($scope, $http)
+function SearchController($scope)
  {
     $scope.pokemons = [ {objet_pokemon_1}, {objet_pokemon_2}, {objet_pokemon_3}, {objet_pokemon_4}, {objet_pokemon_5} ]
  }
@@ -150,7 +150,7 @@ Nous avons le plaisir de vous laisser tester vous-même le résultat afin de pou
 ### Accès à une API
 #### Q10. Récupération de la liste exhaustive des pokémons via l'API
 
-Comme dit précédemment, cette question a été répondu (cf Q4)
+Comme dit précédemment, cette question a été répondu (cf Q4).
 
 #### Q11. Création d'un service $resource pour accéder aux informations d'un pokémon
 
@@ -280,4 +280,4 @@ Et dans la vue principale
 
 ## Nota Bene
 
-Ce projet, bien que mis en pause le temps des révisions de partiels, est toujours en cours de développement. Il n'est pas envisageable que l'application soit implémentée sur le site personnel de Nicolas afin de montrer le résultat et de partager, après nettoyage du code, une application AngularJS intéressante et ludique.
+Ce projet, bien que mis en pause le temps des révisions de partiels, est toujours en cours de développement. Il n'est pas inenvisageable que l'application soit implémentée sur le site personnel de Nicolas afin de montrer le résultat et de partager, après nettoyage du code, une application AngularJS intéressante et ludique.
